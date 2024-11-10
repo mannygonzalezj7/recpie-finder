@@ -6,8 +6,14 @@ const searchButton = document.getElementById('search-button');
 const recipesContainer = document.getElementById('recipes-container');
 const favoritesContainer = document.getElementById('favorites-container');
 
-// Initialize an empty array to store favorite recipes
+// Initialize an empty array to store favorite recipes and hide containers
 let favorites = [];
+console.log(favorites.length);
+if(favorites.length == 0){
+    document.getElementById('favorites').style.visibility = "hidden";
+}
+
+document.getElementById('recipe-results').style.visibility = "hidden";
 
 // Event listener for the search button
 searchButton.addEventListener('click', async () => {
@@ -20,6 +26,8 @@ searchButton.addEventListener('click', async () => {
             console.error("Error fetching recipes:", error);
         }
     }
+
+    document.getElementById('recipe-results').style.visibility = "visible";
 });
 
 // Function to fetch recipes based on ingredients
@@ -53,6 +61,7 @@ function displayRecipes(recipes) {
 
 // Function to save recipes to favorites
 function saveToFavorites(label, image, url) {
+    document.getElementById('favorites').style.visibility = "visible";
     const existingFavorite = favorites.find(fav => fav.url === url);
 
     if (existingFavorite) {
@@ -70,6 +79,9 @@ function saveToFavorites(label, image, url) {
 // Function to remove a recipe from favorites
 function removeFromFavorites(url) {
     favorites = favorites.filter(fav => fav.url !== url);
+    if (favorites.length == 0){
+        document.getElementById('favorites').style.visibility = "hidden";
+    }
     displayFavorites();
 }
 
