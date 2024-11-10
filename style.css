@@ -1,7 +1,7 @@
 /* Basic Reset */
 * {
     margin: 0;
-    padding: 0;
+    padding-top: 1rem;
     box-sizing: border-box;
 }
 
@@ -21,6 +21,7 @@ main{
     flex-direction: column;
     align-items: center;
 }
+
 
 /* Header */
 header {
@@ -43,7 +44,30 @@ header p {
 }
 
 #user{
-    padding: 1rem
+    padding: 1rem;
+    opacity: 0.8;
+    animation: fadeIn 1.8s ease-out;
+}
+
+#no-account, #back-to-home {
+    padding: 1rem;
+    text-align: center;
+}
+
+.login-container, .signup-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-form, #signup-form{
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form button{
+    justify-self: center;
 }
 
 /* Input Section */
@@ -58,6 +82,10 @@ header p {
     margin-bottom: 20px;
     width: 90%;
     max-width: 500px;
+}
+
+p, label{
+    color: white;
 }
 
 input {
