@@ -38,7 +38,7 @@ const handleLogin = (event) => {
         }
 
         // Redirect to dashboard or another page
-        window.location.href = "/index.html";
+        window.location.href = "index.html";
     })
     .catch((error) => {
         const errorMessage = error.message;
@@ -65,7 +65,7 @@ const handleSignup = (event) => {
                 displayName: name
             }).then(() => {
                 console.log("User name updated successfully!");
-                window.location.href = "/login.html";
+                window.location.href = "login.html";
             }).catch((error) => {
                 console.error("Error updating user name:", error.message);
             });
@@ -89,13 +89,13 @@ const handleLogout = (event) => {
         // Update the DOM to show login/signup links again
         if (userElement) {
             userElement.innerHTML = `
-                <a href="/login.html">Login</a> |
-                <a href="/signup.html">Sign Up</a>
+                <a href="login.html">Login</a> |
+                <a href="signup.html">Sign Up</a>
             `;
         }
 
         // Redirect to login page or home page
-        window.location.href = "/login.html";
+        window.location.href = "login.html";
     }).catch((error) => {
         console.error("Error signing out:", error.message);
     });
@@ -130,8 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         if (userElement) {
             userElement.innerHTML = `
-                <a href="/login.html">Login</a> |
-                <a href="/signup.html">Sign Up</a>
+                <a href="login.html">Login</a> |
+                <a href="signup.html">Sign Up</a>
             `;
         }
     }
