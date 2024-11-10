@@ -1,4 +1,3 @@
-// Import Firebase modules
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
@@ -15,8 +14,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Authentication
 const auth = getAuth();
 
 // Handle login
@@ -30,20 +27,18 @@ const handleLogin = (event) => {
         // Successfully logged in
         console.log("User logged in:", userCredential.user);
 
-        // Get the user's name (or email if displayName is not available)
+        // Get the user's name (or email if displayName is not available) and display it
         const userName = userCredential.user.displayName || userCredential.user.email;
 
-        // Save user info to localStorage
         localStorage.setItem('userName', userName);
 
-        // Access the 'user' element in the DOM and set its innerHTML
         const userElement = document.getElementById("user");
         if (userElement) {
             userElement.innerHTML = `Hello, ${userName}! <a href="#" id="logout">Logout</a>`;
         }
 
         // Redirect to dashboard or another page
-        window.location.href = "/index.html"; // Redirect to index.html
+        window.location.href = "/index.html";
     })
     .catch((error) => {
         const errorMessage = error.message;
@@ -65,12 +60,12 @@ const handleSignup = (event) => {
             // Successfully signed up
             console.log("User signed up:", userCredential.user);
 
-            // Now update the user's profile with their name using `updateProfile` from firebase/auth
+            // Update the user's profile with their name
             updateProfile(userCredential.user, {
                 displayName: name
             }).then(() => {
                 console.log("User name updated successfully!");
-                window.location.href = "/login.html";  // Redirect to login page
+                window.location.href = "/login.html";
             }).catch((error) => {
                 console.error("Error updating user name:", error.message);
             });
@@ -83,13 +78,12 @@ const handleSignup = (event) => {
 
 // Handle logout
 const handleLogout = (event) => {
-    event.preventDefault();  // Prevent the default link action
+    event.preventDefault();
 
     const userElement = document.getElementById("user");
 
     // Sign out the user from Firebase
     signOut(auth).then(() => {
-        // Clear user info from localStorage
         localStorage.removeItem('userName');
         
         // Update the DOM to show login/signup links again
@@ -109,7 +103,6 @@ const handleLogout = (event) => {
 
 // Wait for DOM to load before attaching event listeners
 document.addEventListener("DOMContentLoaded", () => {
-    // Check if the login form exists before adding the event listener
     const loginForm = document.getElementById("login-form");
     const signupForm = document.getElementById("signup-form");
 
@@ -126,18 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const userElement = document.getElementById("user");
 
     if (userName) {
-        // If user info exists, display a welcome message and logout option
         if (userElement) {
             userElement.innerHTML = `Hello, ${userName}! <a href="#" id="logout">Logout</a>`;
         }
 
-        // Dynamically add logout event listener after the HTML for logout is inserted
         const logoutLink = document.getElementById("logout");
         if (logoutLink) {
             logoutLink.addEventListener("click", handleLogout);
         }
     } else {
-        // If no user info exists, show login and signup options
         if (userElement) {
             userElement.innerHTML = `
                 <a href="/login.html">Login</a> |
